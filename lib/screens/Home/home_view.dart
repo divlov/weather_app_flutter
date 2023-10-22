@@ -49,7 +49,7 @@ class _HomeViewState extends State<HomeView> {
                       ),
                     );
                   } else {
-                      showToast((state as WeatherError).error.toString());
+                    showToast((state as WeatherError).error.toString());
                     return TextButton(
                         onPressed: () {
                           _weatherCurrentBloc.add(GetWeatherEvent());
@@ -141,8 +141,6 @@ class _HomeViewState extends State<HomeView> {
   }
 
   void showToast(String error) {
-    Fluttertoast.showToast(
-        msg: error,
-        toastLength: Toast.LENGTH_SHORT);
+    Fluttertoast.showToast(msg: error, toastLength: Toast.LENGTH_SHORT);
   }
 }

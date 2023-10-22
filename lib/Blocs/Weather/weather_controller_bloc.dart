@@ -12,7 +12,7 @@ class WeatherCurrentBloc extends Bloc<GetWeatherEvent, WeatherState> {
     on<GetWeatherEvent>((event, emit) async {
       emit(WeatherInitial());
       try {
-        await PermissionChecker().checkLocationPermission();
+        await PermissionChecker.getInstance().checkLocationPermission();
         var position = await Geolocator.getCurrentPosition(
                 desiredAccuracy: LocationAccuracy.medium)
             .timeout(const Duration(seconds: 5));
@@ -20,7 +20,6 @@ class WeatherCurrentBloc extends Bloc<GetWeatherEvent, WeatherState> {
             position.latitude, position.longitude);
         emit(WeatherSuccess(currentWeather: weather));
       } catch (error) {
-        print(error);
         emit(WeatherError(error));
       }
     });
@@ -36,7 +35,7 @@ class WeatherForecastBloc extends Bloc<GetForecastEvent, WeatherState> {
     on<GetForecastEvent>((event, emit) async {
       emit(WeatherInitial());
       try {
-        await PermissionChecker().checkLocationPermission();
+        await PermissionChecker.getInstance().checkLocationPermission();
         var position = await Geolocator.getCurrentPosition(
                 desiredAccuracy: LocationAccuracy.medium)
             .timeout(const Duration(seconds: 5));
@@ -44,7 +43,6 @@ class WeatherForecastBloc extends Bloc<GetForecastEvent, WeatherState> {
             position.latitude, position.longitude);
         emit(WeatherSuccess(forecast: forecast));
       } catch (error) {
-        print(error);
         emit(WeatherError(error));
       }
     });
@@ -70,9 +68,9 @@ class WeatherMultiRegionForecastBloc
       ];
 
       try {
-        await PermissionChecker().checkLocationPermission();
+        await PermissionChecker.getInstance().checkLocationPermission();
         final cityForecastMap =
-            await weatherRepository.getMultiRegionForecast(coordinates);
+            await weatherRepository.getMultiRegionForecast(coordinates).timeout(const Duration(seconds: 10));
         emit(WeatherSuccess(forecastsMultiRegion: cityForecastMap));
       } catch (error) {
         emit(WeatherError(error));
