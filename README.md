@@ -6,6 +6,8 @@ A new Flutter project.
 
 This project is a starting point for a Flutter application.
 
+ADD YOUR OPENWEATHERMAP API_KEY IN WEATHER_REPOSITORY.DART BEFORE RUNNING THIS PROJECT.
+
 A few resources to get you started if this is your first Flutter project:
 
 - [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
